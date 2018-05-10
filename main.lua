@@ -1,13 +1,18 @@
--- Title: NumericTextFields
+-- Title: LivesAndTimers
 -- Name: Chelsea NF
 -- Course: ICS2O/3C
 -- This program displays a math question and asks the user to answer in a numeric 
--- textfield terminal.
+-- textfield terminal, the user will have four lives that will be displayed as well
+-- as a timer will appear.
 
 ---------------------------------------------------------------------------------
 
 -- hide the status bar
 display.setStatusBar(display.HiddenStatusBar)
+
+----------------------------------------------------------------------------------
+--LOCAL VARIABLES
+----------------------------------------------------------------------------------
 
 -- variable for the timer
 local totalSeconds = 10
@@ -53,6 +58,11 @@ end
 
 local function HideCorrect()
 	correctObject.isVisible = false 
+
+end
+
+local function HideIncorrect()
+	incorrectObject.isVisible = false 
 
 end
 ---------------------------------------------------------------------------
@@ -107,26 +117,26 @@ local function UpdateHearts()
 		heart3.isVisible = true
 		heart4.isVisible = true
 	elseif (lives == 3 ) then 
-			heart1.isVisible = false
-			heart2.isVisible = true
-			heart3.isVisible = true
-			heart4.isVisible = true
+		heart1.isVisible = false
+		heart2.isVisible = true
+		heart3.isVisible = true
+		heart4.isVisible = true
 	elseif (lives == 2 ) then 
-			heart1.isVisible = false
-			heart2.isVisible = false
-			heart3.isVisible = true
-			heart4.isVisible = true
+		heart1.isVisible = false
+		heart2.isVisible = false
+		heart3.isVisible = true
+		heart4.isVisible = true
 	elseif (lives == 1 ) then 
-			heart1.isVisible = false
-			heart2.isVisible = false
-			heart3.isVisible = false
-			heart4.isVisible = true
-	elseif (lives == 0 ) then 
-			heart1.isVisible = false
-			heart2.isVisible = false
-			heart3.isVisible = false
-			heart4.isVisible = false
-			gameOver.isVisible = true
+		heart1.isVisible = false
+		heart2.isVisible = false
+		heart3.isVisible = false
+		heart4.isVisible = true
+	elseif (lives == 0 ) then
+		heart1.isVisible = false
+		heart2.isVisible = false
+		heart3.isVisible = false
+		heart4.isVisible = false
+		gameOver.isVisible = true
 		
 	end
 end
@@ -166,8 +176,12 @@ correctObject.isVisible = false
 -- create the incorrect text object and make it invisible
 incorrectObject = display.newText( "Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 50 )
 incorrectObject:setTextColor(155/255, 42/255, 198/255)
-
 incorrectObject.isVisible = false
+
+-- create the clock 
+clockText = display.newText( secondsLeft .. "", display.contentWidth/8, display.contentHeight/8, nil, 150 )
+correctObject:setTextColor(255/255, 250/255, 0/255)
+
 
 -- Create numeric field
 numericField = native.newTextField( display.contentWidth/2, display.contentHeight/2, 150, 80 )
@@ -195,5 +209,5 @@ StarterTimer()
 -- call the function to hide the correct answer
 HideCorrect()
 
--- call the function to numeric field listener
-NumericFieldListener()
+-- call the function to hide the correct answer
+HideIncorrect()
